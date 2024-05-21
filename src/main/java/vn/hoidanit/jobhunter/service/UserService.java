@@ -15,7 +15,9 @@ public class UserService {
     public User SaveUser(User user){
        return this.userRepository.save(user);
     }
-
+    public User getUserByEmail(String username){
+        return this.userRepository.findByEmail(username);
+    }
     public void DeleteUserById(long id){
         this.userRepository.deleteById(id);
     }
