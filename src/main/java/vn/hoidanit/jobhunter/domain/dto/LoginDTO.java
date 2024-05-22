@@ -4,9 +4,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public class LoginDTO {
-    @NotNull(message = "username ko dc bo trong")
+    @NotBlank(message = "username ko dc bo trong")
     private String username;
-    @NotNull(message = "password ko duoc bo trong")
+    @NotBlank(message = "password ko duoc bo trong")
     private String password;
 
     public String getUsername() {
