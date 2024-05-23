@@ -19,7 +19,7 @@ public class Company {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank(message = "Not null")
+    @NotBlank(message = "name ko duoc de trong")
     private String name;
 
     @Column(columnDefinition = "MEDIUMTEXT")
@@ -42,6 +42,13 @@ public class Company {
     public void handleBeforePersist() {
         this.createdAt = Instant.now();
         this.createdBy = SecurityUtil.getCurrentUserLogin().isPresent()
-                ? SecurityUtil.getCurrentUserLogin().get() : null; ;
+                ? SecurityUtil.getCurrentUserLogin().get() : null;
+    }
+
+    @PreUpdate
+    public void handleBeforeUpdate() {
+        this.updatedAt = Instant.now();
+        this.updatedBy = SecurityUtil.getCurrentUserLogin().isPresent()
+                ? SecurityUtil.getCurrentUserLogin().get() : null;
     }
 }
