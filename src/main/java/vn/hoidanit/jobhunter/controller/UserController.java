@@ -1,9 +1,11 @@
 package vn.hoidanit.jobhunter.controller;
 
+import com.turkraft.springfilter.boot.Filter;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -54,17 +56,19 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<ResultPaginationDTO> getAllUsers(@RequestParam("current") Optional<String> current,
-                                                           @RequestParam("size") Optional<String> size) {
-       String sCurrent = current.orElse("");
-       String sSize = size.orElse("");
+    public ResponseEntity<ResultPaginationDTO> getAllUsers(
+            @Filter Specification<User> specification,
+            Pageable pageable
+            ) {
+//       String sCurrent = current.orElse("");
+//       String sSize = size.orElse("");
+//
+//       int pCurrent = Integer.parseInt(sCurrent);
+//       int pSize = Integer.parseInt(sSize);
+//
+//       Pageable pageable = PageRequest.of(pCurrent,pSize);
 
-       int pCurrent = Integer.parseInt(sCurrent);
-       int pSize = Integer.parseInt(sSize);
-
-       Pageable pageable = PageRequest.of(pCurrent,pSize);
-
-        return ResponseEntity.ok(this.userService.GetAllUsers(pageable));
+        return ResponseEntity.ok(this.userService.GetAllUsers(specification,pageable));
 
     }
 
